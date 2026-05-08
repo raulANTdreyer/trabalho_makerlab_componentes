@@ -3,15 +3,15 @@ from src.makerlab_service import MakerLabService
 from src.checkout_repository import CheckoutRepository
 from src.member_repository import MemberRepository
 from src.queue_repository import QueueRepository
-from src. tool_repository import ToolRepository
+from src.tool_repository import ToolRepository
 
 def test_fluxo_componente () :
     checkout_repo = CheckoutRepository ()
-    tool_repo = CheckoutRepository ()
-    member_repo = CheckoutRepository ()
-    queue_repo = CheckoutRepository ()
+    tool_repo = ToolRepository ()
+    member_repo = MemberRepository ()
+    queue_repo = QueueRepository ()
 
-    member_repo.exists = lambda *args: True
+    member_repo.exists = lambda *args: True 
     member_repo.is_blocked = lambda *args: False
     member_repo.has_required_training = lambda *args: True
     tool_repo.exists = lambda *args: True
@@ -27,11 +27,9 @@ def test_fluxo_componente () :
     member_id = 9
     tool_id = 5
 
-    sucess = service.checkout_tool( member_id, tool_id )
+    success = service.checkout_tool( member_id, tool_id )
 
-    if sucess: 
+    if success: 
+
         assert checkout_repo.has_active_checkout( tool_id ) is True
         assert checkout_repo.is_tool_with_member( member_id, tool_id ) is True
-        print ("\n [Sucess] não acredito que funcionou")
-    else :
-        print ("\n [ValueError]")
